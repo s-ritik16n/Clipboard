@@ -10,25 +10,46 @@
   app.set('port',(process.env.PORT||5000));
 
   app.get('/',function(req,res){
-    res.sendFile(__dirname+'public/index.html')
+    res.sendFile(__dirname+'/public/index.html')
   })
 
-app.route('/:url')
+app.route('/:url').
+get(function(req,res){
+  res.sendFile(__dirname+'/public/index.html');
+})
+
+app.route('/find/:url')
 .get(function(req,res){
   res.setHeader('Content-Type','application/json');
+  console.log("inside index");
   db.find({url:req.params.url},function(err,data){
+    console.log("inside find");
     if(data.length == 0){
       res.json({
-        exists:false
+        exist:false
       })
     }
     else {
-      // TO-DO: delete from database
+      console.log("content is: "+data[0].content);
+      db.remove({url:req.params.url},function(err,result) {
+        console.log(result);
+      })
       res.json({
-        exists:true,
+        exist:true,
         data:data[0].content
       })
     }
+  })
+}).
+post(function(req,res){
+  var clip = new db();
+  clip.url = req.params.url;
+  clip.content = req.body.content;
+  clip.save(function(err,res){
+    console.log(res);
+  });
+  res.json({
+    done:true
   })
 })
 
