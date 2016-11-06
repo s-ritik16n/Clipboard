@@ -2,7 +2,7 @@
   <form>
     <div class="form-group"><br />
       <textarea class="form-control" required="required" rows="10" cols="10" placeholder="paste your data here" ng-hide="done" ng-model="content"></textarea><br />
-      <button type="submit" class="btn btn-success" ng-click="submit()" ng-show="exists">Create</button>
+      <button type="submit" class="btn btn-success" ng-click="submit()" ng-hide="done" ng-show="exists">Create</button>
     </div>
   </form>
   <h3 ng-show="done">Done</h3>
