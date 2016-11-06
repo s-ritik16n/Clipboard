@@ -7,6 +7,8 @@ app.use(express.static(__dirname+"/public"))
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 
+app.set('port',(process.env.PORT||3000));
+
 app.get('/',function(req,res){
   res.sendFile('index.html')
 })
@@ -30,5 +32,6 @@ app.route('/:url')
 })
 
 //app.set('port',8080)
-app.listen('3000');
-console.log("Magic happens at port 3000");
+app.listen(app.get('port'),function(){
+  console.log("Magic happens at port "+app.get('port'));
+});
