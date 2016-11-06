@@ -14,4 +14,4 @@ var schema = mongoose.Schema({
   }
 })
 
-module.exports = conn.model('Schema',schema);
+module.exports = mongoose.model('Schema',schema);
