@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var database = require('./confidential.js');
-mongoose.connect(database);
+mongoose.connect(process.env.db);
 //var conn = mongoose.createConnection('mongodb://localhost/clipboard')
 
 //mongodb://localhost/clipboard
