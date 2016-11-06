@@ -15,6 +15,7 @@
 
 app.route('/:url').
 get(function(req,res){
+  console.log("db:"+process.env.db);
   res.sendFile(__dirname+'/public/index.html');
 })
 
