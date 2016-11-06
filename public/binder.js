@@ -1,24 +1,28 @@
-'use strict'
+var app = angular.module('clip',['ngRoute','ngResource'])
 
-var app = angular.module('clipboard',['ngRoute','ngResource'])
-app.config(function($routePovider,$locationProvider){
+app.config(function($routeProvider,$locationProvider){
   $routeProvider.
-  when('/:anything',{
-    templateUrl:url.html,
-    controller: urlC
+  when('/',{
+    templateUrl:"main.html"
+  }).
+  when('/:url',{
+    templateUrl:'url.html',
+    controller: "url"
   })
-})
+  $locationProvider.html5Mode({enabled:true})
+});
 
-app.controller('urlC',function($scope,$http){
-  $http.get('/:url').success(function(result){
-    if(result.exists) {
-      $scope.editor = result.content;
-      //todo: disable post button
-    }
-
-    else {
-      //TO-DO: enable post button
-      //TO-DO: clean textarea
-    }
-  })
+app.controller("url",function($scope,$http,$routeParams){
+    var urls = $routeParams.url;
+    console.log(urls);
+    $http.get('/'+urls).success(function(result){
+      if(result.exists) {
+        $scope.content = result.content;
+        $scope.exists=false;
+      }
+      else {
+        $scope.exists = true;
+        $scope.content="";
+      }
+    })
 })

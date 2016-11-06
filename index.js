@@ -5,6 +5,7 @@ var app = express();
 
 app.use(express.static(__dirname+"/public"))
 app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.json())
 
 app.get('/',function(req,res){
   res.sendFile('index.html')
@@ -14,13 +15,13 @@ app.route('/:url')
 .get(function(req,res){
   db.find({url:req.params.url},function(err,data){
     if(data.length == 0){
-      res.send({
+      res.json({
         exists:false
       })
     }
     else {
       // TO-DO: delete from database
-      res.send({
+      res.json({
         exists:true,
         data:data[0].content
       })
@@ -28,5 +29,6 @@ app.route('/:url')
   })
 })
 
+//app.set('port',8080)
 app.listen('3000');
 console.log("Magic happens at port 3000");
