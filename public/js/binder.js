@@ -1,9 +1,11 @@
+'use strict';
+
 var app = angular.module('clip',['ngRoute','ngResource'])
 
 app.config(function($routeProvider,$locationProvider){
   $routeProvider.
   when('/',{
-    templateUrl:"main.html"
+    templateUrl:"main.html",
   }).
   when('/:url',{
     templateUrl:'url.html',
@@ -13,9 +15,10 @@ app.config(function($routeProvider,$locationProvider){
 });
 
 app.controller("url",function($scope,$http,$routeParams){
+  $scope.load = function(){
     var urls = $routeParams.url;
-    console.log(urls);
-    $http.get('/'+urls).success(function(result){
+    console.log("inside angular code");
+    $http.get('/:url').success(function(result){
       if(result.exists) {
         $scope.content = result.content;
         $scope.exists=false;
@@ -25,4 +28,5 @@ app.controller("url",function($scope,$http,$routeParams){
         $scope.content="";
       }
     })
+  }
 })
