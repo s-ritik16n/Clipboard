@@ -38,7 +38,7 @@ app.controller("url",function($scope,$http,$routeParams){
     })
   }
 
-  $scope.submit=function(){
+  $scope.submit=function(file){
     var url = $routeParams.url;
     var data = JSON.stringify({
       content:$scope.content

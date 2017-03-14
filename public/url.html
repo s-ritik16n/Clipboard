@@ -5,5 +5,11 @@
       <button type="submit" class="btn btn-success" ng-click="submit()" ng-hide="done" ng-show="exists">Create</button>
     </div>
   </form>
+  <form>
+    <div class="form-group"><br />
+      <input type="file" ng-hide="done" ng-show="exists" />
+      <button type="submit" class="btn btn-success" ng-click="submit('file')" ng-hide="done" ng-show="exists">Create</button>
+    </div>
+  </form>
   <h3 ng-show="done">Done</h3>
 </div>
