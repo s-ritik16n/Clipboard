@@ -62,6 +62,7 @@ app.controller("url",function($scope,$http,$routeParams){
       console.log(result);
       if(result.done){
         $scope.done=true;
-      }*/
+      }
+    })*/
   }
 })
