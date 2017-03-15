@@ -52,7 +52,7 @@ app.controller("url",function($scope,$http,$routeParams){
   }
   $scope.uploadFile = function(){
     var form = new FileReader();
-    var file = $scope.myFile;
+    var file = this.files[0];
     form.readAsBinary
   }
 })
