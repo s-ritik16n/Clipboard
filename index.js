@@ -1,5 +1,6 @@
   var express = require('express');
   var db = require('./models.js');
+  var filedb = require("./filemodel.js")
   var bodyParser = require('body-parser');
   var app = express();
 
@@ -15,7 +16,6 @@
 
 app.route('/:url').
 get(function(req,res){
-  console.log("db:"+process.env.db);
   res.sendFile(__dirname+'/public/index.html');
 })
 

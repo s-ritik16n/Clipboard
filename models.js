@@ -11,9 +11,6 @@ var schema = mongoose.Schema({
   },
   content:{
     type: String
-  },
-  file:{
-    type: Buffer
   }
 })
 
