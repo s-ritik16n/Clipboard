@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI)
+mongoose.createConnection(process.env.MONGODB_URI)
 
 var schema = mongoose.Schema({
   name:{
