@@ -58,11 +58,10 @@ app.controller("url",function($scope,$http,$routeParams){
       name: filename,
       data: file
     }
-    $http.post('/findfile/'+url,data).success(function(result){
+    /*$http.post('/findfile/'+url,data).success(function(result){
       console.log(result);
       if(result.done){
         $scope.done=true;
-      }
-    })
+      }*/
   }
 })
