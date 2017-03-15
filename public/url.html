@@ -5,10 +5,10 @@
       <button type="submit" class="btn btn-success" ng-click="submit()" ng-hide="done" ng-show="exists">Create</button>
     </div>
   </form>
-  <form>
+  <form enctype="multipart/form-data">
     <div class="form-group"><br />
       <input type="file" class="btn btn-primary" style="display:inline-block" ng-hide="done" ng-show="exists" file-model="myFile"/>
-      <button type="submit" class="btn btn-success" ng-click="submit('file')" ng-hide="done" ng-show="exists">Upload</button>
+      <button type="submit" class="btn btn-success" ng-click="uploadFile()" ng-hide="done" ng-show="exists">Upload</button>
     </div>
   </form>
   <h3 ng-show="done">Done</h3>
