@@ -55,7 +55,7 @@ app.controller("url",function($scope,$http,$routeParams){
     var data = JSON.stringify({
       file:file,
     })
-    $http.post('/findfile/'+url,data).success(function(result){
+    $http.post('/findfile/'+$routeParams.url,data).success(function(result){
       console.log(result);
       if(result.done){
         $scope.done=true;
