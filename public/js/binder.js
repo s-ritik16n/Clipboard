@@ -52,10 +52,8 @@ app.controller("url",function($scope,$http,$routeParams){
   }
   $scope.uploadFile = function(){
     var file = $scope.myFile;
-    var filename = this.files[0].filename;
     var data = JSON.stringify({
       file:file,
-      filename: filename
     })
     $http.post('/findfile/'+url,data).success(function(result){
       console.log(result);
