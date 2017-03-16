@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI);
-//var conn = mongoose.createConnection('mongodb://localhost/clipboard')
+//mongoose.connect(process.env.MONGODB_URI);
+var conn = mongoose.connect('mongodb://localhost/clipboard')
 
 //mongodb://localhost/clipboard
 
@@ -14,9 +14,8 @@ var schema = mongoose.Schema({
   },
   fileType:Boolean,
   file:{
-    type: Buffer,
+    data: String,
     contentType: String,
-    default: null
   }
 })
 

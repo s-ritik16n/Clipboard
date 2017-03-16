@@ -10,9 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.5.8",
+    "angular-file-upload": "^2.5.0",
     "angular-resource": "^1.5.8",
     "angular-route": "^1.5.8",
     "body-parser": "^1.15.2",
+    "connect-multiparty": "^2.0.0",
     "express": "^4.14.0",
     "gridfs-stream": "^1.1.1",
     "mongoose": "^4.6.5"

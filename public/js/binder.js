@@ -15,7 +15,7 @@ app.config(function($routeProvider,$locationProvider){
   })
 });
 
-app.controller("url",function($scope,$http,$routeParams){
+app.controller("url",function($scope,$http,$routeParams,$timeout){
 
   $scope.main = function(){
     console.log("inside main");
@@ -27,10 +27,10 @@ app.controller("url",function($scope,$http,$routeParams){
     $http.get('/find/'+url).success(function(result){
       console.log(result.exist);
       if(result.exist) {
-        console.log("content is: "+result.data);
-        $scope.content = result.data;
-        $scope.exists=false;
-      }
+          console.log("content is: "+result.data);
+          $scope.content = result.data;
+          $scope.exists=false;
+        }
       else {
         $scope.exists = true;
         $scope.content="";
@@ -50,16 +50,29 @@ app.controller("url",function($scope,$http,$routeParams){
       }
     })
   }
-  $scope.uploadFile = function(){
-    var file = $scope.myFile;
-    var data = JSON.stringify({
-      file:file,
-    })
-    $http.post('/findfile/'+$routeParams.url,data).success(function(result){
-      console.log(result);
-      if(result.done){
-        $scope.done=true;
-      }
-    })
+
+  $scope.submit = function(){
+    if($scope.file){
+      $scope.upload($scope.file);
+    }
+  }
+  $scope.upload = function(){
+    var file = document.getElementById("file").files[0];
+    var img = document.getElementsByTagName("img")[0]
+    var reader = new FileReader();
+    var str;
+    reader.onload = function(e){
+      console.log(reader.result);
+      var data = JSON.stringify({
+        name: file.name,
+        type: file.type,
+        data: reader.result
+      })
+      $http.post('/findfile/'+$routeParams.url,data).success(function(result){
+        console.log("done");
+      })
+    }
+    var blob = new Blob([file])
+    reader.readAsText(blob);
   }
 })
