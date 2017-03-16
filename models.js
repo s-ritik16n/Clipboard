@@ -11,6 +11,12 @@ var schema = mongoose.Schema({
   },
   content:{
     type: String
+  },
+  fileType:Boolean,
+  file:{
+    type: Buffer,
+    contentType: String,
+    default: null
   }
 })
 
