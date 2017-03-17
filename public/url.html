@@ -1,14 +1,14 @@
-<div class="container-fluid" data-ng-init="load()">
+<div class="container-fluid" data-ng-init="loadURLTemplate()">
   <form>
     <div class="form-group"><br />
       <textarea class="form-control" required="required" rows="10" cols="10" placeholder="paste your data here" ng-hide="done" ng-model="content"></textarea><br />
-      <button type="submit" class="btn btn-success" ng-click="submit()" ng-hide="done" ng-show="exists">Create</button>
+      <button type="submit" class="btn btn-success" ng-click="submitText()" ng-hide="done" ng-show="exists">Create</button>
     </div>
   </form>
   <form enctype="multipart/form-data">
-    <div class="form-group"><br />
-      <input type="file" accept="text/plain" id="file" ng-model="file"/>
-      <button type="submit" ng-click="upload()">Upload</button>
+    <div class="form-group" ng-hide="done" ng-show="exists"><br />
+      <input type="file" nv-file-select uploader="uploader" options="uploadOptions" id="file"/>
+      <button type="submit" ng-click="uploadFile()">Upload</button>
     </div>
   </form>
   <img src="" height="200"/>

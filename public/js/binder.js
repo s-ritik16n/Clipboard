@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('clip',['ngRoute','ngResource'])
+var app = angular.module('clip',['ngRoute','ngResource','angularFileUpload'])
 
 app.config(function($routeProvider,$locationProvider){
   $locationProvider.html5Mode({enabled:true});
@@ -15,35 +15,34 @@ app.config(function($routeProvider,$locationProvider){
   })
 });
 
-app.controller("url",function($scope,$http,$routeParams,$timeout){
+app.controller("url",function($scope,$http,$routeParams,$timeout,FileUploader,$sce,$window){
 
-  $scope.main = function(){
-    console.log("inside main");
-  }
-
-  $scope.load = function(){
+  $scope.loadURLTemplate = function(){
     var url = $routeParams.url;
     console.log("inside angular code");
-    $http.get('/find/'+url).success(function(result){
+    $http.get('/getURL/'+url).success(function(result){
       console.log(result.exist);
       if(result.exist) {
+        if(!result.file){
           console.log("content is: "+result.data);
           $scope.content = result.data;
           $scope.exists=false;
+        } else {
+          $window.location = '/getFile/'+url
         }
-      else {
+      }else {
         $scope.exists = true;
         $scope.content="";
       }
     })
   }
 
-  $scope.submit=function(){
+  $scope.submitText = function(){
     var url = $routeParams.url;
     var data = JSON.stringify({
       content:$scope.content
     })
-    $http.post('/find/'+url,data).success(function(result){
+    $http.post('/getURL/'+url,data).success(function(result){
       console.log(result);
       if(result.done){
         $scope.done=true;
@@ -51,28 +50,16 @@ app.controller("url",function($scope,$http,$routeParams,$timeout){
     })
   }
 
-  $scope.submit = function(){
-    if($scope.file){
-      $scope.upload($scope.file);
-    }
+  $scope.uploader = new FileUploader()
+  var uploadURL = '/postFile/'+$routeParams.url;
+  $scope.uploadOptions = {
+    queueLimit: 1,
+    autoUpload: true,
+    url: uploadURL
   }
-  $scope.upload = function(){
-    var file = document.getElementById("file").files[0];
-    var img = document.getElementsByTagName("img")[0]
-    var reader = new FileReader();
-    var str;
-    reader.onload = function(e){
-      console.log(reader.result);
-      var data = JSON.stringify({
-        name: file.name,
-        type: file.type,
-        data: reader.result
-      })
-      $http.post('/findfile/'+$routeParams.url,data).success(function(result){
-        console.log("done");
-      })
-    }
-    var blob = new Blob([file])
-    reader.readAsText(blob);
+  $scope.uploadFile = function(){
+    if(!$scope.uploader.queue[0]) return;
+    $scope.uploader.queue[0].upload()
+    $scope.done = true;
   }
 })

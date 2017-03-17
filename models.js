@@ -13,10 +13,7 @@ var schema = mongoose.Schema({
     type: String
   },
   fileType:Boolean,
-  file:{
-    data: String,
-    contentType: String,
-  }
+  file:String
 })
 
 module.exports = mongoose.model('Schema',schema);
