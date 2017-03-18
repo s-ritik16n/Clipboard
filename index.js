@@ -26,7 +26,7 @@ app.route('/getURL/:url')
 .get(function(req,res){
   res.setHeader('Content-Type','application/json');
   db.find({url:req.params.url},function(err,data){
-    console.log(data);
+    console.log("data: "+data);
     if(data.length == 0){
       res.json({
         exist:false
@@ -34,14 +34,13 @@ app.route('/getURL/:url')
     }
     else {
       if(data[0].fileType === true){
-        console.log("inside true type");
         res.json({
           exist: true,
           file:true
         })
       } else if (data[0].fileType === false) {
         db.remove({url:req.params.url},function(err,result) {
-          console.log(result);
+          console.log("result: "+result);
         })
         res.json({
           exist: true,
@@ -58,7 +57,7 @@ post(function(req,res){
   clip.content = req.body.content;
   clip.fileType = false;
   clip.save(function(err,res){
-    console.log(res);
+    console.log("res:"+res);
   });
   res.json({
     done:true
@@ -95,7 +94,6 @@ app.post('/postFile/:url', multiparty, function(req,res){
       console.log("success!");
     })
   })
-
 })
 
 app.get('/getFile/:url',function(req,res){
@@ -103,20 +101,23 @@ app.get('/getFile/:url',function(req,res){
   var mongoDriver = mongoose.mongo;
   var gfs = new Gridfs(dbs,mongoDriver);
   db.find({url:req.params.url},function(err,data){
-    console.log(data);
-    try {
-      var readstream = gfs.createReadStream({
-        _id: data[0].file
-      });
-    } catch (e) {
-      
-    }
-    res.set({
-      'Content-Disposition':'attachment;filename=some.pdf'
-    })
-    readstream.pipe(res);
-    db.remove({url:req.params.url},function(err,result){
-      gfs.remove({_id: data[0].file})
+    gfs.exist({_id:data[0].file},function(err,found){
+      console.log("found:" +found);
+      if(found){
+        var readstream = gfs.createReadStream({
+          _id: data[0].file
+        });
+        console.log("readstream: "+readstream);
+        res.set({
+          'Content-Disposition':'attachment;filename=some.pdf'
+        })
+        readstream.pipe(res);
+        db.remove({url:req.params.url},function(err,result){
+          gfs.remove({_id:data[0].file})
+        })
+      } else {
+        res.redirect('/')
+      }
     })
   })
 })

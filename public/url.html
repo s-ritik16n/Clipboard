@@ -1,16 +1,18 @@
 <div class="container-fluid" data-ng-init="loadURLTemplate()">
   <form>
     <div class="form-group"><br />
-      <textarea class="form-control" required="required" rows="10" cols="10" placeholder="paste your data here" ng-hide="done" ng-model="content"></textarea><br />
-      <button type="submit" class="btn btn-success" ng-click="submitText()" ng-hide="done" ng-show="exists">Create</button>
+      <textarea class="form-control" style="margin-left:10%;width:80%;margin-top:1%;" required="required" rows="15" placeholder="paste your data here" ng-hide="done" ng-model="content"></textarea><br />
+      <button type="submit" class="btn" ng-click="uploadText()" style="margin-left:45%;width:15%;height:50px;background-color:#f57c00;color:white;font-size:larger;" ng-hide="done" ng-show="exists">Create</button>
     </div>
-  </form>
-  <form enctype="multipart/form-data">
+  </form><br />
+  <section style="margin-left:51.5%;font-size:30px;"ng-hide="done" ng-show="exists">
+    OR
+  </section>
+  <form enctype="multipart/form-data" style="margin-left:42%;">
     <div class="form-group" ng-hide="done" ng-show="exists"><br />
-      <input type="file" nv-file-select uploader="uploader" options="uploadOptions" id="file"/>
-      <button type="submit" ng-click="uploadFile()">Upload</button>
+      <input class="btn" style="display:inline-block;padding:1% 0% 2% 2%;width:27%;height:40px;" type="file" nv-file-select uploader="uploader" options="uploadOptions" id="file"/>
+      <button type="submit" style="background-color:#f57c00;color:white;height:40px;" class="btn" ng-click="uploadFile()">Upload</button>
     </div>
   </form>
-  <img src="" height="200"/>
-  <h3 ng-show="done">Done</h3>
+  <h3 ng-show="done" style="margin-left:45%;">Done</h3>
 </div>

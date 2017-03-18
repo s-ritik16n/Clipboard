@@ -36,9 +36,15 @@ app.controller("url",function($scope,$http,$routeParams,$timeout,FileUploader,$s
       }
     })
   }
+  $scope.redirect = function(){
+    if($scope.url !== ""){
+      $window.location="/"+$scope.url
+    }
+  }
 
-  $scope.submitText = function(){
+  $scope.uploadText = function(){
     var url = $routeParams.url;
+    if($scope.content == "") return; 
     var data = JSON.stringify({
       content:$scope.content
     })
