@@ -127,9 +127,6 @@ app.get('/getFile/:url',function(req,res){
   }).catch(function(){
     res.redirect('/')
   })
-  setTimeout(function () {
-    res.end()
-  }, 10000);
 })
 
 app.listen(app.get('port'),function(){

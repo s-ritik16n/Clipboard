@@ -1,0 +1,28 @@
+#main{
+  background-color:#f57c00;
+  color:white;
+  padding-top:10%;
+}
+#lowermain{
+  display:inline;
+  margin-left:31%;
+}
+#head1{
+  display:inline;
+  background-color:white;
+  color:#f57c00;
+  margin-left:45%;
+  padding:2%;
+}
+#head2{
+  display:inline;
+  background-color:#f57c00;
+  color:white
+}
+#tagline{
+  margin-left:20%;
+  margin-right:20%;
+  text-align:center;
+  font-style:italic;
+  margin-top:5%
+}

@@ -6,11 +6,11 @@ app.config(function($routeProvider,$locationProvider){
   $locationProvider.html5Mode({enabled:true});
   $routeProvider.
   when('/',{
-    templateUrl:"main.html",
+    templateUrl:"views/main.html",
     controller:"url"
   }).
   when('/:url',{
-    templateUrl:"url.html",
+    templateUrl:"views/url.html",
     controller: "url"
   })
 });

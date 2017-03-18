@@ -1,0 +1,15 @@
+input[type=text]{
+  width:20%;
+  margin-top:5%;
+  display:inline;
+}
+input[type=file]{
+  display:inline-block;
+  padding:1% 0% 2% 2%;
+  width:27%;
+  height:40px;
+}
+textarea{
+  margin-left:10%;
+  margin-top:1%;
+}

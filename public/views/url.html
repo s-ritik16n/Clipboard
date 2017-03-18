@@ -1,0 +1,18 @@
+<div class="container-fluid" data-ng-init="loadURLTemplate()">
+  <form>
+    <div class="form-group"><br />
+      <textarea class="form-control" style="width:80%;" required="required" rows="15" placeholder="paste your data here" ng-hide="done" ng-model="content"></textarea><br />
+      <button type="submit" style="margin-left:45%;width:15%;" class="btn" ng-click="uploadText()" ng-hide="done" ng-show="exists">Create</button>
+    </div>
+  </form><br />
+  <section style="margin-left:51%;font-size:30px;width:10%;"ng-hide="done" ng-show="exists">
+    OR
+  </section>
+  <form enctype="multipart/form-data" style="margin-left:42%;">
+    <div class="form-group" ng-hide="done" ng-show="exists"><br />
+      <input class="btn" type="file" nv-file-select uploader="uploader" options="uploadOptions" id="file"/>
+      <button type="submit" class="btn" ng-click="uploadFile()">Upload</button>
+    </div>
+  </form>
+  <h3 ng-show="done" style="margin-left:45%;">Done</h3>
+</div>
