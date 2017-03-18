@@ -100,29 +100,33 @@ app.get('/getFile/:url',function(req,res){
   var dbs = mongoose.connection.db;
   var mongoDriver = mongoose.mongo;
   var gfs = new Gridfs(dbs,mongoDriver);
-  db.find({url:req.params.url},function(err,data){
-    gfs.exist({_id:data[0].file},function(err,found){
-      console.log("found:" +found);
-      if(found){
-        var readstream = gfs.createReadStream({
-          _id: data[0].file
-        });
-        console.log("readstream: "+readstream);
-        res.set({
-          'Content-Disposition':'attachment;filename=some.pdf'
-        })
-        readstream.pipe(res);
-        db.remove({url:req.params.url},function(err,result){
-          gfs.remove({_id:data[0].file})
-        })
-      } else {
-        res.redirect('/')
-      }
+  var p = new Promise(function(resolve, reject) {
+    db.find({url:req.params.url},function(err,data){
+      gfs.exist({_id:data[0].file},function(err,found){
+        console.log("found:" +found);
+        if(found){
+          var readstream = gfs.createReadStream({
+            _id: data[0].file
+          });
+          console.log("readstream: "+readstream);
+          res.set({
+            'Content-Disposition':'attachment;filename=some.pdf'
+          })
+          resolve(readstream)
+          db.remove({url:req.params.url},function(err,result){
+            gfs.remove({_id:data[0].file})
+          })
+        } else {
+          reject()
+        }
+      })
     })
+  });
+  p.then(function(val){
+    val.pipe(res)
+  }).catch(function(){
+    res.redirect('/')
   })
-  setTimeout(function(){
-    res.end()
-  },3000)
 })
 
 app.listen(app.get('port'),function(){
