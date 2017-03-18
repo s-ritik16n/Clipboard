@@ -120,6 +120,9 @@ app.get('/getFile/:url',function(req,res){
       }
     })
   })
+  setTimeout(function(){
+    res.end()
+  },3000)
 })
 
 app.listen(app.get('port'),function(){
