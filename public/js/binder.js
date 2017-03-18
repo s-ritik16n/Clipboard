@@ -28,9 +28,7 @@ app.controller("url",function($scope,$http,$routeParams,$timeout,FileUploader,$s
           $scope.content = result.data;
           $scope.exists=false;
         } else {
-          $timeout(function () {
-            $window.location = '/getFile/'+url
-          }, 3000);
+          $window.location = '/getFile/'+url
         }
       }else {
         $scope.exists = true;

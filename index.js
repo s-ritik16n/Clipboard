@@ -110,7 +110,7 @@ app.get('/getFile/:url',function(req,res){
           });
           console.log("readstream: "+readstream);
           res.set({
-            'Content-Disposition':'attachment;filename=some.pdf'
+            'Content-Disposition':'attachment;filename=clip.pdf'
           })
           resolve(readstream)
           db.remove({url:req.params.url},function(err,result){
@@ -127,6 +127,9 @@ app.get('/getFile/:url',function(req,res){
   }).catch(function(){
     res.redirect('/')
   })
+  setTimeout(function () {
+    res.end()
+  }, 3000);
   res.end()
 })
 
