@@ -28,7 +28,9 @@ app.controller("url",function($scope,$http,$routeParams,$timeout,FileUploader,$s
           $scope.content = result.data;
           $scope.exists=false;
         } else {
-          $window.location = '/getFile/'+url
+          $timeout(function () {
+            $window.location = '/getFile/'+url
+          }, 3000);
         }
       }else {
         $scope.exists = true;
@@ -44,7 +46,7 @@ app.controller("url",function($scope,$http,$routeParams,$timeout,FileUploader,$s
 
   $scope.uploadText = function(){
     var url = $routeParams.url;
-    if($scope.content == "") return; 
+    if($scope.content == "") return;
     var data = JSON.stringify({
       content:$scope.content
     })
