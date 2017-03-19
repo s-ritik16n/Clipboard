@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('clip',['ngRoute','ngResource','angularFileUpload'])
+var app = angular.module('clip',['ngRoute','ngResource','angularFileUpload','ngFileSaver'])
 
 app.config(function($routeProvider,$locationProvider){
   $locationProvider.html5Mode({enabled:true});
@@ -15,7 +15,7 @@ app.config(function($routeProvider,$locationProvider){
   })
 });
 
-app.controller("url",function($scope,$http,$routeParams,$timeout,FileUploader,$sce,$window){
+app.controller("url",function($scope,$http,$routeParams,$timeout,FileUploader,$sce,$window,FileSaver,Blob){
 
   $scope.loadURLTemplate = function(){
     var url = $routeParams.url;
@@ -38,7 +38,10 @@ app.controller("url",function($scope,$http,$routeParams,$timeout,FileUploader,$s
   }
   $scope.redirect = function(){
     if($scope.url !== ""){
-      $window.location="/"+$scope.url
+      $http.get('/getFile/'+$routeParams.url,{responseType:'arrayBuffer'}).success(function(resp){
+        var file = new Blob([resp.data],{type: 'application/pdf'});
+        FileSaver.saveAs(file,'clip.pdf')
+      })
     }
   }
 
