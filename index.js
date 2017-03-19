@@ -100,6 +100,22 @@ app.get('/getFile/:url',function(req,res){
   var dbs = mongoose.connection.db;
   var mongoDriver = mongoose.mongo;
   var gfs = new Gridfs(dbs,mongoDriver);
+  db.find({url:req.params.url},function(err,data){
+    gfs.exist({_id:data[0].file},function(err,found){
+      console.log("found:" +found);
+      if(found){
+        var readstream = gfs.createReadStream({
+          _id: data[0].file
+        });
+        console.log("readstream: "+readstream);
+        res.set({
+          'Content-Disposition':'attachment;filename=clip.pdf'
+        })
+        readstream.pipe(res);
+      }
+    })
+  })
+  /*
   var p = new Promise(function(resolve, reject) {
     db.find({url:req.params.url},function(err,data){
       gfs.exist({_id:data[0].file},function(err,found){
@@ -126,7 +142,8 @@ app.get('/getFile/:url',function(req,res){
     val.pipe(res)
   }).catch(function(){
     res.redirect('/')
-  })
+  })*/
+
 })
 
 app.listen(app.get('port'),function(){
