@@ -28,9 +28,12 @@ app.controller("url",function($scope,$http,$routeParams,$timeout,FileUploader,$s
           $scope.content = result.data;
           $scope.exists=false;
         } else {
-          $window.location = '/getFile/'+url
-        }
-      }else {
+          $http.get('/getFile/'+$routeParams.url,{responseType:'arrayBuffer'}).success(function(resp){
+            var file = new Blob([resp.data],{type: 'application/pdf'});
+            FileSaver.saveAs(file,'clip.pdf')
+        })
+      }
+      } else {
         $scope.exists = true;
         $scope.content="";
       }
@@ -38,12 +41,9 @@ app.controller("url",function($scope,$http,$routeParams,$timeout,FileUploader,$s
   }
   $scope.redirect = function(){
     if($scope.url !== ""){
-      $http.get('/getFile/'+$routeParams.url,{responseType:'arrayBuffer'}).success(function(resp){
-        var file = new Blob([resp.data],{type: 'application/pdf'});
-        FileSaver.saveAs(file,'clip.pdf')
-      })
+      $window.location = '/'+$scope.url;
+      }
     }
-  }
 
   $scope.uploadText = function(){
     var url = $routeParams.url;
