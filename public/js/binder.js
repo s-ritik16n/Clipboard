@@ -15,7 +15,7 @@ app.config(function($routeProvider,$locationProvider){
   })
 });
 
-app.controller("url",function($scope,$http,$routeParams,$timeout,FileUploader,$sce,$window,FileSaver,Blob){
+app.controller("url",function($scope,$http,$routeParams,$timeout,FileUploader,$location,$sce,$window,FileSaver,Blob){
 
   $scope.loadURLTemplate = function(){
     var url = $routeParams.url;
@@ -28,11 +28,25 @@ app.controller("url",function($scope,$http,$routeParams,$timeout,FileUploader,$s
           $scope.content = result.data;
           $scope.exists=false;
         } else {
-          $http.get('/getFile/'+$routeParams.url,{responseType:'arraybuffer'}).success(function(resp){
+          /*$http.get('/getFile/'+$routeParams.url,{responseType:'arraybuffer'}).success(function(resp){
             var file = new Blob([resp.data],{type: 'application/pdf'});
-            FileSaver.saveAs(file,'clip.pdf')
-        })
-      }
+            url = window.URL.createObjectURL(file);
+            var a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display: none";
+            a.href = url;
+            a.download = 'clip.pdf';
+            a.click();
+            window.URL.revokeObjectURL(url);
+            //FileSaver.saveAs(file,'clip.pdf')
+            //var textstring = String.fromCharCode.apply(null, new Uint16Array(resp.data));
+            //var doc = new jsPDF()
+            //console.log(textstring);
+            //doc.text(file,10,10);
+            //doc.save('clip.pdf');
+        })*/
+        $window.location='/getFile/'+url;
+        }
       } else {
         $scope.exists = true;
         $scope.content="";
