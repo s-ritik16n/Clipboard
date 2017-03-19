@@ -28,7 +28,7 @@ app.controller("url",function($scope,$http,$routeParams,$timeout,FileUploader,$s
           $scope.content = result.data;
           $scope.exists=false;
         } else {
-          $http.get('/getFile/'+$routeParams.url,{responseType:'arrayBuffer'}).success(function(resp){
+          $http.get('/getFile/'+$routeParams.url,{responseType:'arraybuffer'}).success(function(resp){
             var file = new Blob([resp.data],{type: 'application/pdf'});
             FileSaver.saveAs(file,'clip.pdf')
         })
