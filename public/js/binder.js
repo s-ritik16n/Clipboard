@@ -28,23 +28,6 @@ app.controller("url",function($scope,$http,$routeParams,$timeout,FileUploader,$l
           $scope.content = result.data;
           $scope.exists=false;
         } else {
-          /*$http.get('/getFile/'+$routeParams.url,{responseType:'arraybuffer'}).success(function(resp){
-            var file = new Blob([resp.data],{type: 'application/pdf'});
-            url = window.URL.createObjectURL(file);
-            var a = document.createElement("a");
-            document.body.appendChild(a);
-            a.style = "display: none";
-            a.href = url;
-            a.download = 'clip.pdf';
-            a.click();
-            window.URL.revokeObjectURL(url);
-            //FileSaver.saveAs(file,'clip.pdf')
-            //var textstring = String.fromCharCode.apply(null, new Uint16Array(resp.data));
-            //var doc = new jsPDF()
-            //console.log(textstring);
-            //doc.text(file,10,10);
-            //doc.save('clip.pdf');
-        })*/
         $window.location='/getFile/'+url;
         }
       } else {
