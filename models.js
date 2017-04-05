@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/clipboard');
+mongoose.connect('mongodb://localhost/clipboard');
 //var conn = mongoose.connect('mongodb://localhost/clipboard')
 
 //mongodb://localhost/clipboard
