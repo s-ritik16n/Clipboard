@@ -12,6 +12,8 @@
     <div class="form-group" ng-hide="done" ng-show="exists"><br />
       <input class="btn" type="file" nv-file-select uploader="uploader" options="uploadOptions" id="file"/>
       <button type="submit" class="btn" ng-click="uploadFile()">Upload</button>
+      <div>&nbsp;&nbsp;&nbsp;&nbsp;(Supported format:pdf)</div>
+      <div ng-show="error" style="color:red">&nbsp;&nbsp;&nbsp;&nbsp;Unsupported format</div>
     </div>
   </form>
   <h3 ng-show="done" style="margin-left:45%;">Done</h3>
