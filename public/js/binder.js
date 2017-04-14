@@ -66,7 +66,7 @@ app.controller("url",function($scope,$http,$routeParams,$timeout,FileUploader,$l
   $scope.uploadFile = function(){
     if(!$scope.uploader.queue[0]) return;
 
-    $scope.uploader.queue[0].file.name.split(".")[$scope.uploader.queue[0].file.name.split(".").length-1]
+    //$scope.uploader.queue[0].file.name.split(".")[$scope.uploader.queue[0].file.name.split(".").length-1]
     if ($scope.uploader.queue[0].file.name.split(".")[$scope.uploader.queue[0].file.name.split(".").length-1] !== "pdf") {
       $scope.error = true;
       return;
