@@ -11,7 +11,7 @@ app.use(express.static(__dirname+"/public"))
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 
-app.set('port',(process.env.PORT||5000));
+//app.set('port',(process.env.PORT||5000));
 
 app.get('/',function(req,res){
   res.sendFile(__dirname+'/public/index.html')
@@ -128,9 +128,12 @@ app.get('/getFile/:url',function(req,res){
   }).catch(function(){
     res.redirect('/')
   })
-    res.redirect('/')
 })
-
+if (process.argv[2] == "dev") {
+  app.set('port',5000)
+} else {
+  app.set('port',80)
+}
 app.listen(app.get('port'),function(){
   console.log("Magic happens at port "+app.get('port'));
 });
