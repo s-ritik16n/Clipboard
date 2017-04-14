@@ -92,7 +92,7 @@ app.post('/postFile/:url', multiparty, function(req,res){
       //console.log("done");
     })
     res.json({
-      done:true
+      done:false
     })
     fs.unlink(req.files.file.path,function(err){
       if(err) return;
