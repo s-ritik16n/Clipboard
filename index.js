@@ -69,8 +69,8 @@ app.post('/postFile/:url', multiparty, function(req,res){
   var dbs = mongoose.connection.db;
   var mongoDriver = mongoose.mongo;
   var gfs = new Gridfs(dbs,mongoDriver);
-  console.log(req.files.file.name);
-  if (path.extname(req.files.file.name) !== "pdf") {
+  console.log(path.extname(req.files.file.name));
+  if (path.extname(req.files.file.name) !== ".pdf") {
     return;
   }
   var writeStream = gfs.createWriteStream({
