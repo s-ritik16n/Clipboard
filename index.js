@@ -6,6 +6,7 @@ const fs = require('fs');
 const multiparty = require('connect-multiparty')();
 const Gridfs = require('gridfs-stream');
 const mongoose = require('mongoose');
+const path = require('path');
 
 app.use(express.static(__dirname+"/public"))
 app.use(bodyParser.urlencoded({extended:true}))
@@ -26,7 +27,7 @@ app.route('/getURL/:url')
 .get(function(req,res){
   res.setHeader('Content-Type','application/json');
   db.find({url:req.params.url},function(err,data){
-    console.log("data: "+data);
+    //console.log("data: "+data);
     if(data.length == 0){
       res.json({
         exist:false
@@ -40,7 +41,7 @@ app.route('/getURL/:url')
         })
       } else if (data[0].fileType === false) {
         db.remove({url:req.params.url},function(err,result) {
-          console.log("result: "+result);
+          //console.log("result: "+result);
         })
         res.json({
           exist: true,
@@ -57,7 +58,7 @@ post(function(req,res){
   clip.content = req.body.content;
   clip.fileType = false;
   clip.save(function(err,res){
-    console.log("res:"+res);
+    //console.log("res:"+res);
   });
   res.json({
     done:true
@@ -68,6 +69,10 @@ app.post('/postFile/:url', multiparty, function(req,res){
   var dbs = mongoose.connection.db;
   var mongoDriver = mongoose.mongo;
   var gfs = new Gridfs(dbs,mongoDriver);
+  console.log(req.files.file.name);
+  if (path.extname(req.files.file.name) !== "pdf") {
+    return;
+  }
   var writeStream = gfs.createWriteStream({
     filename:req.files.file.name,
     mode:'w',
@@ -84,14 +89,14 @@ app.post('/postFile/:url', multiparty, function(req,res){
     clip.file = file._id;
     clip.save(function(err,res){
       if(err) return;
-      console.log("done");
+      //console.log("done");
     })
     res.json({
       done:true
     })
     fs.unlink(req.files.file.path,function(err){
       if(err) return;
-      console.log("success!");
+      //console.log("success!");
     })
   })
 })
@@ -103,12 +108,12 @@ app.get('/getFile/:url',function(req,res){
   var p = new Promise(function(resolve, reject) {
     db.find({url:req.params.url},function(err,data){
       gfs.exist({_id:data[0].file},function(err,found){
-        console.log("found:" +found);
+        //console.log("found:" +found);
         if(found){
           var readstream = gfs.createReadStream({
             _id: data[0].file
           });
-          console.log("readstream: "+readstream);
+          //console.log("readstream: "+readstream);
           res.set({
             'Content-Disposition':'attachment;filename=clip.pdf',
             'Connection': 'keep-alive'
