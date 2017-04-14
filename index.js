@@ -129,7 +129,7 @@ app.get('/getFile/:url',function(req,res){
     res.redirect('/')
   })
 })
-if (process.argv.length > 1) {
+if (process.argv[2] == "dev") {
   app.set('port',5000)
 } else {
   app.set('port',80)
