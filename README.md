@@ -1,10 +1,10 @@
-#MyClips
+# MyClips
 
-##A simple app to create your own personal url and share text content.
+## A simple app to create your own personal url and share text content.
 
-###[Go to website](https://myclips.herokuapp.com)
+### [Go to website](https://myclips.herokuapp.com)
 
-####Guide:
+#### Guide:
 * Go to the website,and create a url by adding a trailing slash and a url name of your choice.<br>
 * Paste your content in the textbox and click create.<br>
 * When you visit the url again, or someone else visits the same url, the content you posted will be found.<br>
